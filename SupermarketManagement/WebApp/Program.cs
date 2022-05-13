@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Plugins.DataStore.InMemory;
+using UseCases;
+using UseCases.DataStorePluginInterfaces;
 using WebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,12 @@ builder.Services.AddSingleton<WeatherForecastService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+//внедрение зависимости для In-Memory Data Store
+builder.Services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
+
+//внедрение зависимости для UseCase
+builder.Services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
