@@ -18,7 +18,7 @@ namespace UseCases
         }
         public IEnumerable<Category> Execute()
         {
-            return (IEnumerable<Category>)categoryRepository.GetCategories();
+            return categoryRepository.GetCategories();
         }
     }
 }
