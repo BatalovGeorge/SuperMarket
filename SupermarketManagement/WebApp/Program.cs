@@ -11,15 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+//внедрение зависимости для In-Memory Data Store
+builder.Services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
+//внедрение зависимости для UseCase
+builder.Services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//внедрение зависимости для In-Memory Data Store
-builder.Services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
 
-//внедрение зависимости для UseCase
-builder.Services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
 
 if (!app.Environment.IsDevelopment())
 {
