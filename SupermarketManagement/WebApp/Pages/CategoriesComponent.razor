@@ -5,7 +5,7 @@
 
 
 
-@if (categories != null)
+@if (_categories != null)
 {
 
         <table>
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                    @foreach (var category in categories)
+                    @foreach (var category in _categories)
             {
                 <tr>
                     <td>@category.Name</td>
@@ -30,17 +30,18 @@
 
 
 @code {
-    private List<Category> categories;
+    private List<Category> _categories;
 
-    public CategoriesComponent(List<Category> categories)
+    public CategoriesComponent()
     {
-        this.categories = categories;
+
     }
 
     protected override void OnInitialized()
     {
+        _categories = ViewCategoryUseCase.Execute().ToList();
         base.OnInitialized();
-        categories = ViewCategoryUseCase.Execute().ToList();
+
     }
 
 }
